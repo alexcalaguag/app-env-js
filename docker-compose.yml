@@ -1,29 +1,5 @@
 version: "3.3"
 services:
-  front-ang:
-    container_name: angular-container
-    build: ./front-ang/cadastro-app
-    image: angular:1.0
-    volumes:
-      - ./front-ang/cadastro-app:/usr/src/app
-    ports:
-      - 4200:4200
-    networks:
-      - net-docker
-    depends_on:
-      - "backend"
-  front-vue:
-    container_name: vue-container
-    build: ./front-vue/address-app
-    image: vue:1.0
-    volumes:
-      - ./front-vue/address-app:/usr/src/app
-    ports:
-      - 8080:8080
-    networks:
-      - net-docker
-    depends_on:
-      - "backend"
   mysql:
     container_name: mysql-container
     image: mysql:5.7
@@ -49,6 +25,35 @@ services:
     depends_on:
       - "mysql"
     command: bash -c "cd /backend && npm install && node app"
+  front-ang:
+    container_name: angular-container
+    build: ./front-ang/cadastro-app
+    image: angular:1.0
+    volumes:
+      - ./front-ang/cadastro-app:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 4200:4200
+    networks:
+      - net-docker
+    depends_on:
+      - "mysql"
+      - "backend"
+  front-vue:
+    container_name: vue-container
+    build: ./front-vue/address-app
+    image: vue:1.0
+    volumes:
+      - ./front-vue/address-app:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 8080:8080
+    networks:
+      - net-docker
+    depends_on:
+      - "mysql"
+      - "backend"
+      - "front-ang"
 networks: 
   net-docker:
     driver: bridge

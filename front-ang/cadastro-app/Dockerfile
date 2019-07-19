@@ -22,4 +22,7 @@ COPY . /usr/src/app
 
 EXPOSE 4200
 
-CMD ng serve --host 0.0.0.0
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.2.1/wait /wait
+RUN chmod +x /wait
+
+CMD /wait && ng serve --host 0.0.0.0
