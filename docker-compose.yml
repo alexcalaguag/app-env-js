@@ -1,0 +1,55 @@
+version: "3.3"
+services:
+  front-ang:
+    container_name: angular-container
+    build: ./front-ang/cadastro-app
+    image: angular:1.0
+    volumes:
+      - ./front-ang/cadastro-app:/usr/src/app
+    ports:
+      - 4200:4200
+    networks:
+      - net-docker
+    depends_on:
+      - "backend"
+  front-vue:
+    container_name: vue-container
+    build: ./front-vue/address-app
+    image: vue:1.0
+    volumes:
+      - ./front-vue/address-app:/usr/src/app
+    ports:
+      - 8080:8080
+    networks:
+      - net-docker
+    depends_on:
+      - "backend"
+  mysql:
+    container_name: mysql-container
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "testedb"
+    ports:
+      - "3306:3306"
+    networks:
+      - net-docker
+    volumes:
+      - ./db/data:/var/lib/mysql
+      - ./db/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+  backend:
+    container_name: node-container
+    image: node:8.1
+    volumes:
+      - ./backend:/backend
+    ports:
+      - 3000:3000
+    networks:
+      - net-docker
+    depends_on:
+      - "mysql"
+    command: bash -c "cd /backend && npm install && node app"
+networks: 
+  net-docker:
+    driver: bridge
+  
