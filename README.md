@@ -1,4 +1,4 @@
-# app-env-js
+# Microfrontend docker
 Instala docker
 Neste passo-a-passo, será visto como instalar o Docker no Ubuntu 64 bits. Todos os comandos listados devem ser executados no seu terminal.
 
