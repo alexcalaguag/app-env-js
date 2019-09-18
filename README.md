@@ -28,6 +28,7 @@ sudo apt-get update
 Por fim, instale o pacote docker-ce:
 ```
 sudo apt-get install docker-ce
+sudo apt install docker-compose
 ```
 Caso você queira, você pode verificar se o Docker foi instalado corretamente verificando a sua versão:
 ```
@@ -37,14 +38,18 @@ E para executar o Docker sem precisar de sudo, adicione o seu usuário ao grupo 
 ```
 sudo usermod -aG docker $(whoami)
 ```
-
-sudo chmod 777 -R * na pasta do projeto
-
-docker system prune
-
-docker container ls
-
-docker image ls
-
 Na pasta do projeto executar o seguinte comando.
+
+```
+sudo chmod 777 -R *
 docker-compose up --build 
+```
+Para limpar todas as images criadas executar o seguinte comando
+```
+docker system prune
+```
+Para listar container e images
+```
+docker container ls
+docker image ls
+```
