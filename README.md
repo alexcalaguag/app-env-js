@@ -48,9 +48,26 @@ Para limpar todas as images criadas executar o seguinte comando
 ```
 docker system prune
 ```
-Apagar todos os containers 
+Apagar todas as images 
 ```
 docker rmi $(docker images -q)
+```
+Parar todos os containers
+```
+docker stop $(docker ps -aq)
+```
+Remover todos os containers
+```
+docker rm $(docker ps -aq)
+```
+Remover todos os volumes
+```
+docker volume rm $(docker volume ls -qf dangling=true)
+```
+Comandos menos utilizados:
+Remover todas as imagens
+```
+docker volume rm $(docker volume ls -qf dangling=true)
 ```
 Para listar container e images
 ```
